@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Interview Up-Sot Extractor</title>
+    <link rel="stylesheet" href="/static/css/new-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with title -->
+        <div class="header">
+            <div class="title-container">
+                <h1><i class="fas fa-file-alt"></i> Professional Interview Up-Sot Extractor</h1>
+                <p class="subtitle">Extract key moments with timecodes for video editing workflows</p>
+            </div>
+        </div>
+
+        <!-- Recording Studio Section -->
+        <div class="section recording-studio">
+            <h2><i class="fas fa-microphone"></i> Recording Studio</h2>
+            
+            <div class="studio-content">
+                <!-- Reel-to-reel visualization -->
+                <div class="reel-to-reel">
+                    <div class="timecode-display">
+                        <span id="timecode">00:00</span>
+                    </div>
+                    
+                    <!-- VU Meters -->
+                    <div class="vu-meters">
+                        <div class="vu-meter left">
+                            <div class="meter-label">L</div>
+                            <div class="meter-body">
+                                <div class="meter-scale"></div>
+                                <div class="meter-needle" id="left-meter"></div>
+                                <div class="meter-peak-indicator"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="vu-meter right">
+                            <div class="meter-label">R</div>
+                            <div class="meter-body">
+                                <div class="meter-scale"></div>
+                                <div class="meter-needle" id="right-meter"></div>
+                                <div class="meter-peak-indicator"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recording Button -->
+                    <div class="record-button-container">
+                        <button id="record-btn" class="record-button">
+                            <i class="fas fa-play"></i> Start Recording
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Parameter Controls -->
+                <div class="parameter-controls">
+                    <div class="parameter">
+                        <label for="upsots-count">Max Up-Sots: <span id="upsots-count-value">10</span></label>
+                        <input type="range" id="upsots-count" min="1" max="30" value="10" class="slider">
+                    </div>
+                    
+                    <div class="parameter">
+                        <label for="sensitivity">Sensitivity: <span id="sensitivity-value">3</span></label>
+                        <input type="range" id="sensitivity" min="1" max="10" value="3" class="slider">
+                    </div>
+                    
+                    <div class="parameter">
+                        <label for="sort-order">Sort Order</label>
+                        <div class="select-container">
+                            <select id="sort-order" class="styled-select">
+                                <option value="chronological">Chronological</option>
+                                <option value="relevance">Relevance</option>
+                                <option value="duration">Duration</option>
+                            </select>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="parameter">
+                        <label for="microphone-select">Microphone Input</label>
+                        <div class="select-container">
+                            <select id="microphone-select" class="styled-select">
+                                <option value="default">Default Microphone</option>
+                                <!-- Additional options will be populated by JavaScript -->
+                            </select>
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transcript Input Section -->
+        <div class="section transcript-input">
+            <h2>Transcript Input</h2>
+            <p class="section-description">Paste your interview transcript with timecodes for best results</p>
+            
+            <div class="transcript-textarea-container">
+                <textarea id="transcript-input" class="transcript-textarea" placeholder="Enter your transcript here...">00:01:23 Interviewer: What was the most significant challenge you faced? 00:01:45 Guest: Well, I think the biggest issue was...</textarea>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="extract-btn" class="primary-button">
+                    <i class="fas fa-bolt"></i> Extract Key Moments
+                </button>
+                <button id="clear-btn" class="secondary-button">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="section results-section">
+            <h2>Extracted Up-Sots</h2>
+            <div id="results-container" class="results-container">
+                <p class="placeholder-text">Extracted key moments will appear here</p>
+            </div>
+            
+            <div class="export-options">
+                <button id="download-txt" class="export-button">
+                    <i class="fas fa-file-alt"></i> DOWNLOAD TXT
+                </button>
+                <button id="download-pdf" class="export-button">
+                    <i class="fas fa-file-pdf"></i> DOWNLOAD PDF
+                </button>
+                <button id="download-edl" class="export-button">
+                    <i class="fas fa-file-code"></i> DOWNLOAD EDL
+                </button>
+                <button id="email-btn" class="export-button">
+                    <i class="fas fa-envelope"></i> EMAIL TO STATION
+                </button>
+            </div>
+        </div>
+        
+        <!-- Progress Information Bar -->
+        <div class="status-bar">
+            <div class="status-message" id="status-message">Ready to record or process transcript</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/new-ui.js"></script>
+    <script src="/static/js/api-client.js"></script>
+    <script src="/static/js/audio-recorder.js"></script>
+</body>
+</html>

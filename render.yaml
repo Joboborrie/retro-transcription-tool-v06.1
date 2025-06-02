@@ -1,0 +1,10 @@
+# Render Deployment Configuration
+services:
+  - type: web
+    name: retro-transcription-tool
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.main:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
